@@ -11,7 +11,7 @@ public class Character {
 
     @Column(name = "full_name")
     private String fullName;
-    @Column(name = "alias", nullable = false)
+    @Column(name = "alias")
     private String alias;
     @Column(name = "gender")
     private String gender;
