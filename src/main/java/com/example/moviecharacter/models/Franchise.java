@@ -6,7 +6,7 @@ import java.util.List;
 @Entity
 public class Franchise {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "name")
