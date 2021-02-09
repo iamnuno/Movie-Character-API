@@ -14,7 +14,7 @@ public class Movie {
     @Column(name = "genres")
     private String genre;
     @Column(name = "release_year")
-    private String releaseYear;
+    private int releaseYear;
     @Column(name = "director")
     private String director;
     @Column(name = "picture")
@@ -53,11 +53,11 @@ public class Movie {
         this.genre = genre;
     }
 
-    public String getReleaseYear() {
+    public int getReleaseYear() {
         return releaseYear;
     }
 
-    public void setReleaseYear(String releaseYear) {
+    public void setReleaseYear(int releaseYear) {
         this.releaseYear = releaseYear;
     }
 
