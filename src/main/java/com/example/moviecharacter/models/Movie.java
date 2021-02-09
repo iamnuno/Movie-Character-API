@@ -1,7 +1,10 @@
 package com.example.moviecharacter.models;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class Movie {
@@ -28,6 +31,17 @@ public class Movie {
     @ManyToOne
     @JoinColumn(name = "franchise_id")
     private Franchise franchise;
+
+    @JsonGetter("characters")
+    public List<String> charactersGetter() {
+        if(characters != null){
+            return characters.stream()
+                    .map(character -> {
+                        return "/api/characters/" + character.getId();
+                    }).collect(Collectors.toList());
+        }
+        return null;
+    }
 
     public long getId() {
         return id;
