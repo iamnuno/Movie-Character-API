@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
+import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/movies")
@@ -34,7 +34,7 @@ public class MovieController {
         if(movieRepository.existsById(id)){
             status = HttpStatus.OK;
             movie = movieRepository.findById(id).get();
-        //if movie doesn't exist set HttpStatus as not found
+            //if movie doesn't exist set HttpStatus as not found
         } else {
             status = HttpStatus.NOT_FOUND;
         }
@@ -77,3 +77,4 @@ public class MovieController {
         return new ResponseEntity<>(null, status);
     }
 }
+
