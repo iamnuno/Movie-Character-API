@@ -44,18 +44,33 @@ public class CharacterController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Character> updateCharacter(@PathVariable Long id, @RequestBody Character character) {
-        Character returnCharacter = new Character();
-        HttpStatus status;
+    public ResponseEntity<Character> updateCharacter(@PathVariable Long id, @RequestBody Character characterUpdate) {
+        if (characterRepository.existsById(id)) {
+            if (id == characterUpdate.getId()) {
+                Character character = characterRepository.findById(id).get();
 
-        if (!id.equals(character.getId())){
-            status = HttpStatus.BAD_REQUEST;
-            return new ResponseEntity<>(returnCharacter, status);
+                if (characterUpdate.getFullName() != null)
+                    character.setFullName(characterUpdate.getFullName());
+
+                if (characterUpdate.getAlias() != null)
+                    character.setAlias(characterUpdate.getAlias());
+
+                if (characterUpdate.getGender() != null)
+                    character.setGender(characterUpdate.getGender());
+
+                if (characterUpdate.getPicture() != null)
+                    character.setPicture(characterUpdate.getPicture());
+
+                if (characterUpdate.getMovies() != null) {
+                    character.setMovies(characterUpdate.getMovies());
+                }
+
+                characterRepository.save(character);
+                return new ResponseEntity<>(character, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
-
-        returnCharacter = characterRepository.save(character);
-        status = HttpStatus.OK;
-        return new ResponseEntity<>(returnCharacter, status);
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}")
