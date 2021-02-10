@@ -37,7 +37,7 @@ public class Movie {
         if(characters != null){
             return characters.stream()
                     .map(character -> {
-                        return "/api/characters/" + character.getId();
+                        return "/api/v1/characters/" + character.getId();
                     }).collect(Collectors.toList());
         }
         return null;
