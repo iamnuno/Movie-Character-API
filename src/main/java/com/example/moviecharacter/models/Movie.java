@@ -25,16 +25,20 @@ public class Movie {
     @Column(name = "trailer")
     private String trailer;
 
-    @JsonIgnore
     @ManyToMany(mappedBy = "movies")
     private List<Character> characters;
+
+    @JsonGetter("characters")
+    public List<String> charactersGetter() {
+        if (characters != null)
+            return characters.stream().map(character -> "/api/v1/movies/" + character.getId()).collect(Collectors.toList());
+        return null;
+    }
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "franchise_id")
     private Franchise franchise;
-
-
 
     public long getId() {
         return id;

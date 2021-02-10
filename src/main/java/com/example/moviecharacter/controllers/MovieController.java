@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
@@ -29,11 +30,24 @@ public class MovieController {
         return new ResponseEntity<>(movies, status);
     }
 
-    @GetMapping("/{id}/characters")
+/*    @GetMapping("/{id}/characters")
     public ResponseEntity<List<Character>> getAllCharactersInMovie(@PathVariable Long id){
         List<Character> characters = characterRepository.findAllCharactersInMovie(id);
         HttpStatus status = HttpStatus.OK;
         return new ResponseEntity<>(characters, status);
+    }*/
+
+    @GetMapping("/{id}/characters")
+    public ResponseEntity<List<Character>> getCharactersByMovie(@PathVariable Long id){
+        List<Character> characters;
+        if (movieRepository.existsById(id)) {
+            characters = new ArrayList<>(movieRepository.getOne(id).getCharacters());
+            if (characters.size() > 0) {
+                return new ResponseEntity<>(characters, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     //returns a movie by id
