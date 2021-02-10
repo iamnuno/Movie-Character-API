@@ -1,5 +1,7 @@
 package com.example.moviecharacter.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class Franchise {
     @Column(name = "description")
     private String description;
 
+    @JsonIgnore
     @OneToMany
     @JoinColumn(name = "franchise_id")
     List<Movie> movies;
@@ -51,3 +54,4 @@ public class Franchise {
         this.movies = movies;
     }
 }
+
