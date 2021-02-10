@@ -1,6 +1,8 @@
 package com.example.moviecharacter.controllers;
 
+import com.example.moviecharacter.models.Character;
 import com.example.moviecharacter.models.Movie;
+import com.example.moviecharacter.repositories.CharacterRepository;
 import com.example.moviecharacter.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,8 @@ public class MovieController {
 
     @Autowired
     private MovieRepository movieRepository;
+    @Autowired
+    private CharacterRepository characterRepository;
 
     //returns all movies
     @GetMapping
@@ -23,6 +27,13 @@ public class MovieController {
         List<Movie> movies = movieRepository.findAll();
         HttpStatus status = HttpStatus.OK;
         return new ResponseEntity<>(movies, status);
+    }
+
+    @GetMapping("/{id}/characters")
+    public ResponseEntity<List<Character>> getAllCharactersInMovie(@PathVariable Long id){
+        List<Character> characters = characterRepository.findAllCharactersInMovie(id);
+        HttpStatus status = HttpStatus.OK;
+        return new ResponseEntity<>(characters, status);
     }
 
     //returns a movie by id
