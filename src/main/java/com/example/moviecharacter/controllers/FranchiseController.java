@@ -1,6 +1,7 @@
 package com.example.moviecharacter.controllers;
 
 import com.example.moviecharacter.models.Franchise;
+import com.example.moviecharacter.models.Movie;
 import com.example.moviecharacter.repositories.FranchiseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("api/v1/franchise")
+@RequestMapping("api/v1/franchises")
 public class FranchiseController {
 
     @Autowired
@@ -70,5 +71,16 @@ public class FranchiseController {
         }
         return new ResponseEntity<>(null, status);
     }
+
+    @GetMapping("/{id}/movies")
+    public ResponseEntity<List<Movie>> getMoviesInFranchise(@PathVariable long id){
+        if (franchiseRepository.existsById(id)) {
+            Franchise franchise = franchiseRepository.findById(id).get();
+            List<Movie> movies = franchise.getMovies();
+            return new ResponseEntity<>(movies, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
+
 
 }

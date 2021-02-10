@@ -35,10 +35,17 @@ public class Movie {
         return null;
     }
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "franchise_id")
     private Franchise franchise;
+
+    @JsonGetter("franchise")
+    public String franchiseGetter() {
+        if (franchise != null)
+            return "/api/v1/franchises/" + franchise.getId();
+        return null;
+    }
+
 
     public long getId() {
         return id;
