@@ -1,6 +1,7 @@
 package com.example.moviecharacter.controllers;
 
 import com.example.moviecharacter.models.*;
+import com.example.moviecharacter.models.Character;
 import com.example.moviecharacter.services.FranchiseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -50,5 +51,11 @@ public class FranchiseController {
     @GetMapping("/{id}/movies")
     public ResponseEntity<List<Movie>> getMoviesInFranchise(@PathVariable Long id) {
         return franchiseService.getMoviesInFranchise(id);
+    }
+
+    //getting all character from franchise
+    @GetMapping("/{id}/characters")
+    public ResponseEntity<List<Character>> getCharactersInFranchise(@PathVariable Long id) {
+        return franchiseService.getCharactersInFranchise(id);
     }
 }
