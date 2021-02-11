@@ -32,7 +32,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/characters/3",
+					"raw": "http://localhost:8080/api/v1/characters/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -42,7 +42,7 @@
 						"api",
 						"v1",
 						"characters",
-						"3"
+						"1"
 					]
 				}
 			},
@@ -55,7 +55,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"fullName\": \"Peter Parker\",\n    \"alias\": \"Spiderman\",\n    \"gender\": \"male\",\n    \"picture\": \"http://url.com/picture\"\n}",
+					"raw": "{\n    \"fullName\": \"Norman Osborn\",\n    \"alias\": \"Green Goblin\",\n    \"gender\": \"male\",\n    \"picture\": \"http://url.com/picture\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -85,7 +85,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{   \n    \"id\": 15,\n    \"movies\": [{\"id\": 6}]\n}",
+					"raw": "{   \n    \"id\": 1,\n    \"movies\": [{\"id\": 1}]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -93,7 +93,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/v1/characters/15",
+					"raw": "http://localhost:8080/api/v1/characters/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -103,7 +103,7 @@
 						"api",
 						"v1",
 						"characters",
-						"15"
+						"1"
 					]
 				}
 			},
@@ -137,7 +137,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/movies",
+					"raw": "http://localhost:8080/api/v1/movies/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -146,7 +146,8 @@
 					"path": [
 						"api",
 						"v1",
-						"movies"
+						"movies",
+						"1"
 					]
 				}
 			},
@@ -199,6 +200,28 @@
 						"api",
 						"v1",
 						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get movie by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/movies/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"movies",
+						"1"
 					]
 				}
 			},
