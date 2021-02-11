@@ -30,9 +30,17 @@ public class Movie {
     private String picture;
     @Column(name = "trailer")
     private String trailer;
+
     //Movie can have many characters in it, and a character can appear in many different movies.
-    @ManyToMany(mappedBy = "movies")
+    @ManyToMany
+    @JoinTable(
+            name = "movie_character",
+            joinColumns = {@JoinColumn(name = "movie_id")},
+            inverseJoinColumns = {@JoinColumn(name = "character_id")}
+    )
     private List<Character> characters;
+
+
     //JsonGetter for Characters in a movie. Returns api path for the Characters
     @JsonGetter("characters")
     public List<String> charactersGetter() {
@@ -40,10 +48,12 @@ public class Movie {
             return characters.stream().map(character -> "/api/v1/characters/" + character.getId()).collect(Collectors.toList());
         return null;
     }
+
     //A movie can be a part of Franchise
     @ManyToOne
     @JoinColumn(name = "franchise_id")
     private Franchise franchise;
+
     //JsonGetter for franchise
     @JsonGetter("franchise")
     public String franchiseGetter() {
