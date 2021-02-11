@@ -2,6 +2,7 @@ package com.example.moviecharacter.services;
 
 import com.example.moviecharacter.models.Character;
 import com.example.moviecharacter.models.Movie;
+import com.example.moviecharacter.repositories.CharacterRepository;
 import com.example.moviecharacter.repositories.FranchiseRepository;
 import com.example.moviecharacter.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
     @Autowired
-    private FranchiseRepository franchiseRepository;
+    private CharacterRepository characterRepository;
 
     //returns all movies in the database as an list
     public ResponseEntity<List<Movie>> getAllMovies() {
@@ -76,10 +77,7 @@ public class MovieService {
                 Movie movie = movieRepository.findById(id).get();
 
                 if (movieToUpdate.getTitle() != null)
-                    movie.setTitle(movie.getTitle());
-
-                if (movieToUpdate.getCharacters() != null)
-                    movie.setCharacters(movieToUpdate.getCharacters());
+                    movie.setTitle(movieToUpdate.getTitle());
 
                 if (movieToUpdate.getDirector() != null)
                     movie.setDirector(movieToUpdate.getDirector());
@@ -99,8 +97,21 @@ public class MovieService {
                 if (movieToUpdate.getTrailer() != null)
                     movie.setTrailer(movieToUpdate.getTrailer());
 
+
+                if (movieToUpdate.getCharacters() != null) {
+                    List<Character> characters = movieToUpdate.getCharacters();
+                    List<Character> newCharacters = new ArrayList<>();
+                    for (Character character : characters) {
+                        if (characterRepository.existsById(character.getId()))
+                                newCharacters.add(character);
+                            else
+                                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+                        }
+                        movie.setCharacters(newCharacters);
+                    }
+
                 movieRepository.save(movie);
-                return new ResponseEntity<>(movie, HttpStatus.OK);
+                return new ResponseEntity<>(movie,HttpStatus.OK);
             }
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
