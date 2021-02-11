@@ -11,12 +11,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/characters",
-					"protocol": "http",
+					"raw": "https://character-movie-app.herokuapp.com/api/v1/characters",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"character-movie-app",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"v1",
@@ -32,17 +33,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/characters/1",
-					"protocol": "http",
+					"raw": "https://character-movie-app.herokuapp.com/api/v1/characters/5",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"character-movie-app",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"v1",
 						"characters",
-						"1"
+						"5"
 					]
 				}
 			},
@@ -55,7 +57,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"fullName\": \"Norman Osborn\",\n    \"alias\": \"Green Goblin\",\n    \"gender\": \"male\",\n    \"picture\": \"http://url.com/picture\"\n}",
+					"raw": "{\n    \"fullName\": \"Han Solo\",\n    \"alias\": \"Captain Solo\",\n    \"gender\": \"male\",\n    \"picture\": \"http://url.com/picture\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -63,12 +65,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/v1/characters",
-					"protocol": "http",
+					"raw": "https://character-movie-app.herokuapp.com/api/v1/characters",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"character-movie-app",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"v1",
@@ -85,7 +88,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{   \n    \"id\": 1,\n    \"movies\": [{\"id\": 1}]\n}",
+					"raw": "{   \n    \"id\": 6,\n    \"movies\": [{\"id\": 4}]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -93,24 +96,25 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/v1/characters/1",
-					"protocol": "http",
+					"raw": "https://character-movie-app.herokuapp.com/api/v1/characters/6",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"character-movie-app",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"v1",
 						"characters",
-						"1"
+						"6"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Delete character by id",
+			"name": "Delete character",
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -137,65 +141,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/movies/1",
-					"protocol": "http",
+					"raw": "https://character-movie-app.herokuapp.com/api/v1/movies",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"character-movie-app",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
-					"path": [
-						"api",
-						"v1",
-						"movies",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete movie",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/v1/movies/4",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"v1",
-						"movies",
-						"4"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Add movie",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"title\": \"Spiderman\",\n    \"genre\": \"Adventure\",\n    \"releaseYear\": 2000,\n    \"director\": \"Some guy\",\n    \"picture\": \"http://url.com/picture1\",\n    \"trailer\": \"http://youtube.com/sadjhkasjhd\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/api/v1/movies",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
 					"path": [
 						"api",
 						"v1",
@@ -211,17 +163,307 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/movies/1",
-					"protocol": "http",
+					"raw": "https://character-movie-app.herokuapp.com/api/v1/movies/3",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"character-movie-app",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"movies",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get characters in movie",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://character-movie-app.herokuapp.com/api/v1/movies/3/characters",
+					"protocol": "https",
+					"host": [
+						"character-movie-app",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"movies",
+						"3",
+						"characters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add movie",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{       \n    \"title\": \"Spiderman\",\n    \"genre\": \"Adventure\",\n    \"releaseYear\": 2000,\n    \"director\": \"Some guy\",\n    \"picture\": \"http://url.com/picture1\",\n    \"trailer\": \"http://youtube.com/sadjhkasjhd\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://character-movie-app.herokuapp.com/api/v1/movies",
+					"protocol": "https",
+					"host": [
+						"character-movie-app",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update movie",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 3,\n    \"characters\": [{\"id\": 4}]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://character-movie-app.herokuapp.com/api/v1/movies/3",
+					"protocol": "https",
+					"host": [
+						"character-movie-app",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"movies",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete movie",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://character-movie-app.herokuapp.com/api/v1/movies/1",
+					"protocol": "https",
+					"host": [
+						"character-movie-app",
+						"herokuapp",
+						"com"
+					],
 					"path": [
 						"api",
 						"v1",
 						"movies",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all franchises",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://character-movie-app.herokuapp.com/api/v1/franchises",
+					"protocol": "https",
+					"host": [
+						"character-movie-app",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"franchises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get franchise by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://character-movie-app.herokuapp.com/api/v1/franchises/1",
+					"protocol": "https",
+					"host": [
+						"character-movie-app",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"franchises",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get characters in franchise",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://character-movie-app.herokuapp.com/api/v1/franchises/1/characters",
+					"protocol": "https",
+					"host": [
+						"character-movie-app",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"franchises",
+						"1",
+						"characters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get movies in franchise",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://character-movie-app.herokuapp.com/api/v1/franchises/1/movies",
+					"protocol": "https",
+					"host": [
+						"character-movie-app",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"franchises",
+						"1",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add franchise",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Blah\",\n    \"description\": \"More superhero stuff\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://character-movie-app.herokuapp.com/api/v1/franchises",
+					"protocol": "https",
+					"host": [
+						"character-movie-app",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"franchises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update franchise",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"movies\": [{\"id\": 3}, {\"id\": 4}]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://character-movie-app.herokuapp.com/api/v1/franchises/1",
+					"protocol": "https",
+					"host": [
+						"character-movie-app",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"franchises",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete franchise",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://character-movie-app.herokuapp.com/api/v1/franchises/4",
+					"protocol": "https",
+					"host": [
+						"character-movie-app",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"franchises",
+						"4"
 					]
 				}
 			},
