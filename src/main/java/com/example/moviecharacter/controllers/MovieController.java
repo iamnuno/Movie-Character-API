@@ -30,13 +30,6 @@ public class MovieController {
         return new ResponseEntity<>(movies, status);
     }
 
-/*    @GetMapping("/{id}/characters")
-    public ResponseEntity<List<Character>> getAllCharactersInMovie(@PathVariable Long id){
-        List<Character> characters = characterRepository.findAllCharactersInMovie(id);
-        HttpStatus status = HttpStatus.OK;
-        return new ResponseEntity<>(characters, status);
-    }*/
-
     @GetMapping("/{id}/characters")
     public ResponseEntity<List<Character>> getCharactersByMovie(@PathVariable Long id){
         List<Character> characters;
