@@ -68,8 +68,10 @@ public class MovieService {
 
     //adds a movie into the database. Returns the added movie and http status created.
     public ResponseEntity<Movie> addMovie(Movie movie) {
-        movie = movieRepository.save(movie);
-        return new ResponseEntity<>(movie, HttpStatus.CREATED);
+        if (!movieRepository.existsById(movie.getId()))
+            return new ResponseEntity<>(movieRepository.save(movie), HttpStatus.CREATED);
+        else
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
     //updates a movie in the database. Checks that request provides all necessary fields.
