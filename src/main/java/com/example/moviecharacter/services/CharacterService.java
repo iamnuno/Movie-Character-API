@@ -68,6 +68,8 @@ public class CharacterService {
                         for (Movie movie: movies) {
                             if (movieRepository.existsById(movie.getId())) {
                                 newMovies.add(movie);
+                            } else {
+                                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
                             }
                         }
                         character.setMovies(newMovies);
@@ -79,7 +81,7 @@ public class CharacterService {
             }
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     public ResponseEntity<Character> deleteCharacter(long id) {
