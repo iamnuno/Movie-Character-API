@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("api/v1/franchise")
+@RequestMapping("api/v1/franchises")
 public class FranchiseController {
 
     @Autowired
@@ -48,7 +48,7 @@ public class FranchiseController {
 
     //getting all movies from franchise
     @GetMapping("/{id}/movies")
-    public ResponseEntity<List<Movie>> getMovies(@PathVariable Long id) {
-        return franchiseService.getMovies(id);
+    public ResponseEntity<List<Movie>> getMoviesInFranchise(@PathVariable Long id) {
+        return franchiseService.getMoviesInFranchise(id);
     }
 }

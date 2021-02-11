@@ -17,8 +17,6 @@ public class FranchiseService {
 
     @Autowired
     private FranchiseRepository franchiseRepository;
-    @Autowired
-    private MovieRepository movieRepository;
 
     //get all franchises
     public ResponseEntity<List<Franchise>> getAllFranchises() {
@@ -84,16 +82,14 @@ public class FranchiseService {
         }
         return new ResponseEntity<>(null, status);
     }
+
     //getting all movies from franchise
-    public ResponseEntity<List<Movie>> getMovies(@PathVariable Long id){
-        List<Movie> returnMovies = new Movie();
-        HttpStatus status;
-        if(movieRepository.existsById(id)){
-            status = HttpStatus.OK;
-            returnMovies = movieRepository.findAllMoviesInFranchise(id);
-        } else {
-            status = HttpStatus.NOT_FOUND;
+    public ResponseEntity<List<Movie>> getMoviesInFranchise(@PathVariable Long id){
+        if (franchiseRepository.existsById(id)) {
+            Franchise franchise = franchiseRepository.findById(id).get();
+            List<Movie> movies = franchise.getMovies();
+            return new ResponseEntity<>(movies, HttpStatus.OK);
         }
-        return new ResponseEntity<>(returnMovies, status);
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 }
