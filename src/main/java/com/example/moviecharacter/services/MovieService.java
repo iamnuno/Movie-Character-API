@@ -1,6 +1,5 @@
 package com.example.moviecharacter.services;
 
-import com.example.moviecharacter.models.Character;
 import com.example.moviecharacter.models.Movie;
 import com.example.moviecharacter.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
