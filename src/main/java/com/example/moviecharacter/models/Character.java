@@ -22,7 +22,6 @@ public class Character {
     @Column(name = "picture")
     private String picture;
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "movie_character",
@@ -31,6 +30,13 @@ public class Character {
     )
 
     private List<Movie> movies;
+    @JsonGetter("movies")
+    public List<String> moviesGetter() {
+        if (movies != null)
+            return movies.stream().map(movie -> "/api/v1/movies/" + movie.getId()).collect(Collectors.toList());
+        return null;
+    }
+
 
     public long getId() {
         return id;

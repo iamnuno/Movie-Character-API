@@ -2,12 +2,15 @@ package com.example.moviecharacter.services;
 
 import com.example.moviecharacter.models.Character;
 import com.example.moviecharacter.models.Movie;
+import com.example.moviecharacter.repositories.MovieProjection;
 import com.example.moviecharacter.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,23 +19,37 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
 
-    public ResponseEntity<List<Movie>> getCharacters() {
+    public ResponseEntity<List<MovieProjection>> getAllMovies() {
+        List<MovieProjection> movies = movieRepository.findAllProjectedBy();
+        HttpStatus status = HttpStatus.OK;
         List<Movie> characters = movieRepository.findAll();
-        return new ResponseEntity<>(characters, HttpStatus.OK);
+        return new ResponseEntity<>(movies, HttpStatus.OK);
     }
 
-    public ResponseEntity<Movie> getMovieById(long id) {
-        Movie returnMovie = new Movie();
+    public ResponseEntity<MovieProjection> getMovieById(long id) {
         HttpStatus status;
-
-        if (movieRepository.existsById(id)){
+        // check if the movie exists, if it does set http status as ok
+        if(movieRepository.existsById(id)){
+            MovieProjection movie = movieRepository.findProjectedById(id);
             status = HttpStatus.OK;
-            returnMovie = movieRepository.findById(id).get();
+            return new ResponseEntity<>(movie, status);
+            //if movie doesn't exist set HttpStatus as not found
         } else {
             status = HttpStatus.NOT_FOUND;
+            return new ResponseEntity<>(null, status);
         }
+    }
 
-        return new ResponseEntity<>(null, status);
+    public ResponseEntity<List<Character>> getCharactersByMovie(@PathVariable Long id){
+        List<Character> characters;
+        if (movieRepository.existsById(id)) {
+            characters = new ArrayList<>(movieRepository.getOne(id).getCharacters());
+            if (characters.size() > 0) {
+                return new ResponseEntity<>(characters, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     public ResponseEntity<Movie> addMovie(Movie movie) {
@@ -57,18 +74,18 @@ public class MovieService {
                 if (movieToUpdate.getPicture() != null)
                     movie.setPicture(movieToUpdate.getPicture());
 
-                if (movieToUpdate.getFranchise() != null) {
+                if (movieToUpdate.getFranchise() != null)
                     movie.setFranchise(movieToUpdate.getFranchise());
-                }
-                if (movieToUpdate.getGenre() != null) {
+
+                if (movieToUpdate.getGenre() != null)
                     movie.setGenre(movieToUpdate.getGenre());
-                }
-                if (movieToUpdate.getReleaseYear() != 0) {
+
+                if (movieToUpdate.getReleaseYear() != 0)
                     movie.setReleaseYear(movieToUpdate.getReleaseYear());
-                }
-                if (movieToUpdate.getTrailer() != null) {
+
+                if (movieToUpdate.getTrailer() != null)
                     movie.setTrailer(movieToUpdate.getTrailer());
-                }
+
 
                 return new ResponseEntity<>(movie, HttpStatus.OK);
             }

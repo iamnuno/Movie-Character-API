@@ -1,4 +1,9 @@
 package com.example.moviecharacter.repositories;
 
-public interface FranchiseRepository {
+import com.example.moviecharacter.models.Franchise;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface FranchiseRepository extends JpaRepository<Franchise, Long> {
 }
