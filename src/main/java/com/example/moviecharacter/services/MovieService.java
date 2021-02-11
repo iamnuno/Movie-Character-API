@@ -1,7 +1,6 @@
 package com.example.moviecharacter.services;
 
 import com.example.moviecharacter.models.Character;
-import com.example.moviecharacter.models.Franchise;
 import com.example.moviecharacter.models.Movie;
 import com.example.moviecharacter.repositories.FranchiseRepository;
 import com.example.moviecharacter.repositories.MovieRepository;
