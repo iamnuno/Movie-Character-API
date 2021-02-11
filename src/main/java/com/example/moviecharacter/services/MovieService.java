@@ -1,7 +1,9 @@
 package com.example.moviecharacter.services;
 
 import com.example.moviecharacter.models.Character;
+import com.example.moviecharacter.models.Franchise;
 import com.example.moviecharacter.models.Movie;
+import com.example.moviecharacter.repositories.FranchiseRepository;
 import com.example.moviecharacter.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,8 @@ public class MovieService {
 
     @Autowired
     private MovieRepository movieRepository;
+    @Autowired
+    private FranchiseRepository franchiseRepository;
 
     //returns all movies in the database as an list
     public ResponseEntity<List<Movie>> getAllMovies() {
@@ -96,7 +100,7 @@ public class MovieService {
                 if (movieToUpdate.getTrailer() != null)
                     movie.setTrailer(movieToUpdate.getTrailer());
 
-
+                movieRepository.save(movie);
                 return new ResponseEntity<>(movie, HttpStatus.OK);
             }
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
@@ -104,7 +108,7 @@ public class MovieService {
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
-    //deletes movie from the datbase. Takes movie id as param. Returns httpstatus not found if movie isn't in the database.
+    //deletes movie from the database. Takes movie id as param. Returns httpstatus not found if movie isn't in the database.
     public ResponseEntity<Movie> deleteMovie(long id) {
         HttpStatus status;
         if (movieRepository.existsById(id)){
