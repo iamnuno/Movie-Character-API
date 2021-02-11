@@ -1,12 +1,15 @@
 package com.example.moviecharacter.services;
 
 import com.example.moviecharacter.models.Character;
+import com.example.moviecharacter.models.Movie;
 import com.example.moviecharacter.repositories.CharacterRepository;
+import com.example.moviecharacter.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,6 +17,8 @@ public class CharacterService {
 
     @Autowired
     private CharacterRepository characterRepository;
+    @Autowired
+    private MovieRepository movieRepository;
 
     public ResponseEntity<List<Character>> getCharacters() {
         List<Character> characters = characterRepository.findAll();
@@ -57,7 +62,16 @@ public class CharacterService {
                     character.setPicture(characterUpdate.getPicture());
 
                 if (characterUpdate.getMovies() != null) {
-                    character.setMovies(characterUpdate.getMovies());
+                    if (characterUpdate.getMovies() != null) {
+                        List<Movie> movies = characterUpdate.getMovies();
+                        List<Movie> newMovies = new ArrayList<>();
+                        for (Movie movie: movies) {
+                            if (movieRepository.existsById(movie.getId())) {
+                                newMovies.add(movie);
+                            }
+                        }
+                        character.setMovies(newMovies);
+                    }
                 }
 
                 characterRepository.save(character);
