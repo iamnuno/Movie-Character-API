@@ -30,7 +30,7 @@ public class Movie {
     @JsonGetter("characters")
     public List<String> charactersGetter() {
         if (characters != null)
-            return characters.stream().map(character -> "/api/v1/movies/" + character.getId()).collect(Collectors.toList());
+            return characters.stream().map(character -> "/api/v1/characters/" + character.getId()).collect(Collectors.toList());
         return null;
     }
 
