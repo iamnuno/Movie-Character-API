@@ -1,7 +1,9 @@
 package com.example.moviecharacter.services;
 
 import com.example.moviecharacter.models.Character;
+import com.example.moviecharacter.models.Franchise;
 import com.example.moviecharacter.models.Movie;
+import com.example.moviecharacter.repositories.CharacterRepository;
 import com.example.moviecharacter.repositories.FranchiseRepository;
 import com.example.moviecharacter.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class MovieService {
 
     @Autowired
     private MovieRepository movieRepository;
+    @Autowired
+    private CharacterRepository characterRepository;
     @Autowired
     private FranchiseRepository franchiseRepository;
 
@@ -76,10 +80,7 @@ public class MovieService {
                 Movie movie = movieRepository.findById(id).get();
 
                 if (movieToUpdate.getTitle() != null)
-                    movie.setTitle(movie.getTitle());
-
-                if (movieToUpdate.getCharacters() != null)
-                    movie.setCharacters(movieToUpdate.getCharacters());
+                    movie.setTitle(movieToUpdate.getTitle());
 
                 if (movieToUpdate.getDirector() != null)
                     movie.setDirector(movieToUpdate.getDirector());
@@ -87,8 +88,13 @@ public class MovieService {
                 if (movieToUpdate.getPicture() != null)
                     movie.setPicture(movieToUpdate.getPicture());
 
-                if (movieToUpdate.getFranchise() != null)
-                    movie.setFranchise(movieToUpdate.getFranchise());
+                if (movieToUpdate.getFranchise() != null){
+                    Franchise franchise = movieToUpdate.getFranchise();
+                    if (franchiseRepository.existsById(franchise.getId()))
+                        movie.setFranchise(franchise);
+                    else
+                        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+                }
 
                 if (movieToUpdate.getGenre() != null)
                     movie.setGenre(movieToUpdate.getGenre());
@@ -99,8 +105,19 @@ public class MovieService {
                 if (movieToUpdate.getTrailer() != null)
                     movie.setTrailer(movieToUpdate.getTrailer());
 
+                if (movieToUpdate.getCharacters() != null) {
+                    List<Character> characters = movieToUpdate.getCharacters();
+                    List<Character> newCharacters = new ArrayList<>();
+                    for (Character character : characters) {
+                        if (characterRepository.existsById(character.getId()))
+                                newCharacters.add(character);
+                            else
+                                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+                        }
+                        movie.setCharacters(newCharacters);
+                }
                 movieRepository.save(movie);
-                return new ResponseEntity<>(movie, HttpStatus.OK);
+                return new ResponseEntity<>(movie,HttpStatus.OK);
             }
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }

@@ -41,7 +41,7 @@ public class MovieController {
         return movieService.addMovie(movie);
     }
 
-    //umapping for updating a move in the database
+    //mapping for updating a move in the database
     @PutMapping("/{id}")
     public ResponseEntity<Movie> updateMovie(@PathVariable Long id, @RequestBody Movie movie){ return movieService.updateMovie(id, movie); }
 
