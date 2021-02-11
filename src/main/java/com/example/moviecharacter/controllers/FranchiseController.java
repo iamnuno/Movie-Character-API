@@ -86,7 +86,6 @@ public class FranchiseController {
 
     @GetMapping("/{id}/characters")
     public ResponseEntity<List<Character>> getCharactersInFranchise(@PathVariable long id) {
-
         if (franchiseRepository.existsById(id)) {
             Franchise franchise = franchiseRepository.findById(id).get();
             List<Movie> movies = franchise.getMovies();
@@ -103,7 +102,4 @@ public class FranchiseController {
         }
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
-
-
-
 }

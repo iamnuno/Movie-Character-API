@@ -30,7 +30,6 @@ public class Franchise {
         return null;
     }
 
-
     public long getId() {
         return id;
     }
