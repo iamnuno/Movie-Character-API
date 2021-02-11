@@ -1,7 +1,6 @@
 package com.example.moviecharacter.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-
 import javax.persistence.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +38,6 @@ public class Movie {
             inverseJoinColumns = {@JoinColumn(name = "character_id")}
     )
     private List<Character> characters;
-
 
     //JsonGetter for Characters in a movie. Returns api path for the Characters
     @JsonGetter("characters")

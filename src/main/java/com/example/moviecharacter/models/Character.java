@@ -36,7 +36,6 @@ public class Character {
         return null;
     }
 
-
     public long getId() {
         return id;
     }
