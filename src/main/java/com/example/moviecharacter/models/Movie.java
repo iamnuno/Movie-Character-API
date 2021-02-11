@@ -6,8 +6,15 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/*
+*
+* Entity Class for Movies.
+*
+ */
+
 @Entity
 public class Movie {
+    //Movie tables columns
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -23,21 +30,21 @@ public class Movie {
     private String picture;
     @Column(name = "trailer")
     private String trailer;
-
+    //Movie can have many characters in it, and a character can appear in many different movies.
     @ManyToMany(mappedBy = "movies")
     private List<Character> characters;
-
+    //JsonGetter for Characters in a movie. Returns api path for the Characters
     @JsonGetter("characters")
     public List<String> charactersGetter() {
         if (characters != null)
-            return characters.stream().map(character -> "/api/v1/movies/" + character.getId()).collect(Collectors.toList());
+            return characters.stream().map(character -> "/api/v1/characters/" + character.getId()).collect(Collectors.toList());
         return null;
     }
-
+    //A movie can be a part of Franchise
     @ManyToOne
     @JoinColumn(name = "franchise_id")
     private Franchise franchise;
-
+    //JsonGetter for franchise
     @JsonGetter("franchise")
     public String franchiseGetter() {
         if (franchise != null)
@@ -45,7 +52,7 @@ public class Movie {
         return null;
     }
 
-
+    //getters and setters
     public long getId() {
         return id;
     }
