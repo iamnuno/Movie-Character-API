@@ -1,17 +1,20 @@
 package com.example.moviecharacter.controllers;
 
+import com.example.moviecharacter.models.Character;
 import com.example.moviecharacter.models.Franchise;
+import com.example.moviecharacter.models.Movie;
 import com.example.moviecharacter.repositories.FranchiseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("api/v1/franchise")
+@RequestMapping("api/v1/franchises")
 public class FranchiseController {
 
     @Autowired
@@ -71,4 +74,32 @@ public class FranchiseController {
         return new ResponseEntity<>(null, status);
     }
 
+    @GetMapping("/{id}/movies")
+    public ResponseEntity<List<Movie>> getMoviesInFranchise(@PathVariable long id){
+        if (franchiseRepository.existsById(id)) {
+            Franchise franchise = franchiseRepository.findById(id).get();
+            List<Movie> movies = franchise.getMovies();
+            return new ResponseEntity<>(movies, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/{id}/characters")
+    public ResponseEntity<List<Character>> getCharactersInFranchise(@PathVariable long id) {
+        if (franchiseRepository.existsById(id)) {
+            Franchise franchise = franchiseRepository.findById(id).get();
+            List<Movie> movies = franchise.getMovies();
+            List<Character> characters = new ArrayList<>();
+            for (Movie movie : movies) {
+                List<Character> charactersMovie = movie.getCharacters();
+                for (Character character : charactersMovie) {
+                    if (!characters.contains(character)) {
+                        characters.add(character);
+                    }
+                }
+            }
+            return new ResponseEntity<>(characters, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
 }

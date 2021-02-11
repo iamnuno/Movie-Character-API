@@ -31,12 +31,11 @@ public class Character {
     private List<Movie> movies;
     @JsonGetter("movies")
     public List<String> moviesGetter() {
-        if (movies != null){
-            return movies.stream()
-                    .map(movie -> "/api/v1/movies/" + movie.getId()).collect(Collectors.toList());
-        }
+        if (movies != null)
+            return movies.stream().map(movie -> "/api/v1/movies/" + movie.getId()).collect(Collectors.toList());
         return null;
     }
+
 
     public long getId() {
         return id;

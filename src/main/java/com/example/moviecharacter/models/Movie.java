@@ -11,7 +11,6 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     @Column(name = "title")
     private String title;
     @Column(name = "genres")
@@ -28,20 +27,24 @@ public class Movie {
     @ManyToMany(mappedBy = "movies")
     private List<Character> characters;
 
+    @JsonGetter("characters")
+    public List<String> charactersGetter() {
+        if (characters != null)
+            return characters.stream().map(character -> "/api/v1/movies/" + character.getId()).collect(Collectors.toList());
+        return null;
+    }
+
     @ManyToOne
     @JoinColumn(name = "franchise_id")
     private Franchise franchise;
 
-    @JsonGetter("characters")
-    public List<String> charactersGetter() {
-        if(characters != null){
-            return characters.stream()
-                    .map(character -> {
-                        return "/api/characters/" + character.getId();
-                    }).collect(Collectors.toList());
-        }
+    @JsonGetter("franchise")
+    public String franchiseGetter() {
+        if (franchise != null)
+            return "/api/v1/franchises/" + franchise.getId();
         return null;
     }
+
 
     public long getId() {
         return id;

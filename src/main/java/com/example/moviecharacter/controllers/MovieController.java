@@ -1,13 +1,17 @@
 package com.example.moviecharacter.controllers;
 
+import com.example.moviecharacter.models.Character;
 import com.example.moviecharacter.models.Movie;
+import com.example.moviecharacter.repositories.CharacterRepository;
 import com.example.moviecharacter.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/movies")
@@ -16,6 +20,8 @@ public class MovieController {
 
     @Autowired
     private MovieRepository movieRepository;
+    @Autowired
+    private CharacterRepository characterRepository;
 
     //returns all movies
     @GetMapping
@@ -23,6 +29,19 @@ public class MovieController {
         List<Movie> movies = movieRepository.findAll();
         HttpStatus status = HttpStatus.OK;
         return new ResponseEntity<>(movies, status);
+    }
+
+    @GetMapping("/{id}/characters")
+    public ResponseEntity<List<Character>> getCharactersByMovie(@PathVariable Long id){
+        List<Character> characters;
+        if (movieRepository.existsById(id)) {
+            characters = new ArrayList<>(movieRepository.getOne(id).getCharacters());
+            if (characters.size() > 0) {
+                return new ResponseEntity<>(characters, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     //returns a movie by id
