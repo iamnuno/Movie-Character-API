@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * FranchiseController class handles the controller logic for database interaction.
+ */
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("api/v1/franchises")
