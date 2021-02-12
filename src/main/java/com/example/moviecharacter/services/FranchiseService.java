@@ -13,20 +13,32 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * FranchiseService class acts as a service class between FranchiseRepository and FranchiseController.
+ * Separating business logic from controller logic.
+ */
+
 @Service
 public class FranchiseService {
 
     @Autowired
     private FranchiseRepository franchiseRepository;
 
-    //get all franchises
+    /**
+     * Calls FranchiseRepository to get all franchises from the database.
+     * @return                 List of Franchise objects and a HTTP status.
+     */
     public ResponseEntity<List<Franchise>> getAllFranchises() {
         List<Franchise> franchises = franchiseRepository.findAll();
         HttpStatus status = HttpStatus.OK;
         return new ResponseEntity<>(franchises,status);
     }
 
-    //get a franchise
+    /**
+     * Calls FranchiseRepository to get a single Franchise from the database.
+     * @param id               Id of the Franchise.
+     * @return                 Franchise object and a HTTP status.
+     */
     public ResponseEntity<Franchise> getFranchise(@PathVariable Long id){
         Franchise returnFranchise = new Franchise();
         HttpStatus status;
@@ -40,14 +52,29 @@ public class FranchiseService {
     }
 
 
-    //adding a franchise
+    /**
+     * Calls FranchiseRepository to add a Franchise to the database.
+     * @param franchise        Franchise object to be added.
+     * @return                 A Franchise entity and a HTTP status.
+     */
     public ResponseEntity<Franchise> addFranchise(@RequestBody Franchise franchise){
-        Franchise returnFranchise = franchiseRepository.save(franchise);
-        HttpStatus status = HttpStatus.CREATED;
-        return new ResponseEntity<>(returnFranchise, status);
+        HttpStatus status;
+        if(franchiseRepository.existsById(franchise.getId())) {
+            Franchise returnFranchise = franchiseRepository.save(franchise);
+            status = HttpStatus.CREATED;
+            return new ResponseEntity<>(returnFranchise, status);
+        } else {
+            status = HttpStatus.BAD_REQUEST;
+            return new ResponseEntity<>(null, status);
+        }
     }
 
-    //updating a Franchise
+    /**
+     * Calls FranchiseRepository to update a Franchise in the database.
+     * @param id               Id of the Franchise to be updated.
+     * @param franchiseUpdate  Franchise object to be updated.
+     * @return                 A Franchise response entity and a HTTP status.
+     */
     public ResponseEntity<Franchise> updateFranchise(@PathVariable Long id, @RequestBody Franchise franchiseUpdate){
         Franchise returnFranchise = new Franchise();
         HttpStatus status;
@@ -72,7 +99,11 @@ public class FranchiseService {
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
-    //deleting a franchise
+    /**
+     * Calls FranchiseRepository to delete a Franchise from the database.
+     * @param id               Id of the Franchise to be deleted.
+     * @return                 A Franchise response entity and a HTTP status.
+     */
     public ResponseEntity<Franchise> deleteFranchise(@PathVariable Long id) {
         HttpStatus status;
         if (franchiseRepository.existsById(id)) {
@@ -84,7 +115,11 @@ public class FranchiseService {
         return new ResponseEntity<>(null, status);
     }
 
-    //getting all movies from franchise
+    /**
+     * Calls FranchiseRepository to get all movies in a given Franchise from the database.
+     * @param id               Id of the Franchise.
+     * @return                 List of all movies in the Franchise and a HTTP status.
+     */
     public ResponseEntity<List<Movie>> getMoviesInFranchise(@PathVariable Long id){
         if (franchiseRepository.existsById(id)) {
             Franchise franchise = franchiseRepository.findById(id).get();
@@ -94,7 +129,11 @@ public class FranchiseService {
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
-
+    /**
+     * Calls FranchiseRepository to get all characters in all movies in a Franchise from the database.
+     * @param id               Id of the Franchise
+     * @return                 List of all characters in a Franchise and a HTTP status.
+     */
     public ResponseEntity<List<Character>> getCharactersInFranchise(@PathVariable long id) {
         if (franchiseRepository.existsById(id)) {
             Franchise franchise = franchiseRepository.findById(id).get();
