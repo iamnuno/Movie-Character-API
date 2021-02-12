@@ -45,7 +45,7 @@ The application is constructed using Spring, Spring Data, and Hibernate, and usi
 
 9. The project should be published on Heroku.
 
-### Authors
+## Authors
 Project by:
     1. Nuno Cunha
     2. Okko Partanen
