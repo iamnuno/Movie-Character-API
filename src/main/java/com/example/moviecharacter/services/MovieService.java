@@ -14,12 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-* MovieService class.
-* Acts as an service class between movieRepository and MovieController.
-* Separating business logic from controller logic.
+/**
+ * MovieService class acts as an service class between MovieRepository and MovieController.
+ * Separating business logic from controller logic.
  */
-
 @Service
 public class MovieService {
 
@@ -30,7 +28,10 @@ public class MovieService {
     @Autowired
     private FranchiseRepository franchiseRepository;
 
-    //returns all movies in the database as an list
+    /**
+     * Calls MovieRepository to get all movies from the database.
+     * @return      List of Movie objects and HTTP Status.
+     */
     public ResponseEntity<List<Movie>> getAllMovies() {
         List<Movie> movies = movieRepository.findAll();
         HttpStatus status = HttpStatus.OK;
@@ -38,7 +39,11 @@ public class MovieService {
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }
 
-    //returns a single movie. Takes movie id as param.
+    /**
+     * Calls MovieRepository to get a single movie from the database.
+     * @param id    Private key of the Movie
+     * @return      Movie object and HTTP Status.
+     */
     public ResponseEntity<Movie> getMovieById(long id) {
         HttpStatus status;
         // check if the movie exists, if it does set http status as ok and return the movie
@@ -53,7 +58,11 @@ public class MovieService {
         }
     }
 
-    //returns all characters in a given movie. Takes movie id as param.
+    /**
+     * Calls MovieRepository to get all Characters in a given movie from the database.
+     * @param id    Private key of the Movie
+     * @return      List of Characters and HTTP Status.
+     */
     public ResponseEntity<List<Character>> getCharactersByMovie(@PathVariable Long id){
         List<Character> characters;
         if (movieRepository.existsById(id)) {
@@ -66,7 +75,11 @@ public class MovieService {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
-    //adds a movie into the database. Returns the added movie and http status created.
+    /**
+     * Calls MovieRepository to add a movie in to the database.
+     * @param movie    Movie object to be added
+     * @return      A movie response entity and HTTP Status.
+     */
     public ResponseEntity<Movie> addMovie(Movie movie) {
         if (!movieRepository.existsById(movie.getId()))
             return new ResponseEntity<>(movieRepository.save(movie), HttpStatus.CREATED);
@@ -74,8 +87,12 @@ public class MovieService {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
-    //updates a movie in the database. Checks that request provides all necessary fields.
-    //returns the updated movie object if request was valid. If it's not valid returns httpstatus bad request or no content.
+    /**
+     * Calls MovieRepository to update a movie in the database.
+     * @param movieToUpdate    Movie object to be updated.
+     * @param id    Id of the movie to be updated.
+     * @return      A movie response entity and HTTP Status.
+     */
     public ResponseEntity<Movie> updateMovie(Long id, Movie movieToUpdate) {
         if (movieRepository.existsById(id)) {
             if (id == movieToUpdate.getId()) {
@@ -126,7 +143,11 @@ public class MovieService {
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
-    //deletes movie from the database. Takes movie id as param. Returns httpstatus not found if movie isn't in the database.
+    /**
+     * Calls MovieRepository to delete a movie from the database.
+     * @param id    Id of the movie to be deleted.
+     * @return      A movie response entity and HTTP Status.
+     */
     public ResponseEntity<Movie> deleteMovie(long id) {
         HttpStatus status;
         if (movieRepository.existsById(id)){
