@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Service class handling character related database repository interaction.
+ */
 @Service
 public class CharacterService {
 
@@ -66,18 +69,17 @@ public class CharacterService {
                     character.setPicture(characterUpdate.getPicture());
 
                 if (characterUpdate.getMovies() != null) {
-                    if (characterUpdate.getMovies() != null) {
-                        List<Movie> movies = characterUpdate.getMovies();
-                        List<Movie> newMovies = new ArrayList<>();
-                        for (Movie movie: movies) {
-                            if (movieRepository.existsById(movie.getId())) {
-                                newMovies.add(movie);
-                            } else {
-                                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-                            }
+                    // check if movies exist in database before setting them in character
+                    List<Movie> movies = characterUpdate.getMovies();
+                    List<Movie> newMovies = new ArrayList<>();
+                    for (Movie movie : movies) {
+                        if (movieRepository.existsById(movie.getId())) {
+                            newMovies.add(movie);
+                        } else {
+                            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
                         }
-                        character.setMovies(newMovies);
                     }
+                    character.setMovies(newMovies);
                 }
 
                 characterRepository.save(character);

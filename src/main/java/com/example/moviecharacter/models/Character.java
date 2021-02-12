@@ -6,6 +6,9 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Entity class, used by Hibernate to generate database table and respective relations.
+ */
 @Entity
 public class Character {
     @Id

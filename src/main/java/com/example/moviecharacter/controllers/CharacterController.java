@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Rest Controller mappings for characters
+ */
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/characters")
