@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * MovieService class acts as an service class between MovieRepository and MovieController.
- * Separating business logic from controller logic.
+ * MovieService class acts as an service class between MovieRepository and MovieController
+ * Separating business logic from controller logic
  */
 @Service
 public class MovieService {
@@ -28,8 +28,8 @@ public class MovieService {
     private FranchiseRepository franchiseRepository;
 
     /**
-     * Calls MovieRepository to get all movies from the database.
-     * @return      List of Movie objects and HTTP Status.
+     * Calls MovieRepository to get all movies from the database
+     * @return      List of Movie objects and HTTP Status
      */
     public ResponseEntity<List<Movie>> getAllMovies() {
         List<Movie> movies = movieRepository.findAll();
@@ -37,9 +37,9 @@ public class MovieService {
     }
 
     /**
-     * Calls MovieRepository to get a single movie from the database.
+     * Calls MovieRepository to get a single movie from the database
      * @param id    Private key of the Movie
-     * @return      Movie object and HTTP Status.
+     * @return      Movie object and HTTP Status
      */
     public ResponseEntity<Movie> getMovieById(Long id) {
         if(movieRepository.existsById(id)){
@@ -50,9 +50,9 @@ public class MovieService {
     }
 
     /**
-     * Calls MovieRepository to get all Characters in a given movie from the database.
+     * Calls MovieRepository to get all Characters in a given movie from the database
      * @param id    Private key of the Movie
-     * @return      List of Characters and HTTP Status.
+     * @return      List of Characters and HTTP Status
      */
     public ResponseEntity<List<Character>> getCharactersByMovie(Long id){
         List<Character> characters;
@@ -67,9 +67,9 @@ public class MovieService {
     }
 
     /**
-     * Calls MovieRepository to add a movie in to the database.
+     * Calls MovieRepository to add a movie in to the database
      * @param movie    Movie object to be added
-     * @return      A movie response entity and HTTP Status.
+     * @return      A movie response entity and HTTP Status
      */
     public ResponseEntity<Movie> addMovie(Movie movie) {
         if (!movieRepository.existsById(movie.getId()))
@@ -79,10 +79,10 @@ public class MovieService {
     }
 
     /**
-     * Calls MovieRepository to update a movie in the database.     *
-     * @param movieToUpdate    Movie object to be updated.
-     * @param id    Id of the movie to be updated.
-     * @return      A movie response entity and HTTP Status.
+     * Calls MovieRepository to update a movie in the database
+     * @param movieToUpdate    Movie object to be updated
+     * @param id    Id of the movie to be updated
+     * @return      A movie response entity and HTTP Status
      */
     public ResponseEntity<Movie> updateMovie(Long id, Movie movieToUpdate) {
         if (movieRepository.existsById(id)) {
@@ -135,9 +135,9 @@ public class MovieService {
     }
 
     /**
-     * Calls MovieRepository to delete a movie from the database.
-     * @param id    Id of the movie to be deleted.
-     * @return      A movie response entity and HTTP Status.
+     * Calls MovieRepository to delete a movie from the database
+     * @param id    Id of the movie to be deleted
+     * @return      A movie response entity and HTTP Status
      */
     public ResponseEntity<Movie> deleteMovie(Long id) {
         HttpStatus status;

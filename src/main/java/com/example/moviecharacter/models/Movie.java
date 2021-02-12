@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Entity class for Movie Objects.
+ * Entity class for Movie Objects
  */
 
 @Entity
