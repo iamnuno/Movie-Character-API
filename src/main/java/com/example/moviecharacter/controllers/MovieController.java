@@ -12,8 +12,8 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/movies")
 
-/*
-* MovieController class. Provides mapping for the API's movie endpoints
+/**
+ * MovieController provides mapping for API's movie path.
  */
 
 public class MovieController {
@@ -21,31 +21,55 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
-    //mapping for getting all movies
+    /**
+     * GET mapping for all movies in the database.
+     * @return      ResponseEntity containing list of Movie objects and HTTP Status.
+     */
     @GetMapping
     public ResponseEntity<List<Movie>> getAllMovies(){
         return movieService.getAllMovies();
     }
 
-    //mapping for getting all characters in a given movie
+    /**
+     * GET mapping for all characters in a given movie.
+     * @param id    id of the movie as path variable.
+     * @return      ResponseEntity containing list of Movie objects and HTTP Status.
+     */
     @GetMapping("/{id}/characters")
     public ResponseEntity<List<Character>> getCharactersByMovie(@PathVariable Long id){ return movieService.getCharactersByMovie(id); }
 
-    //mapping for getting a movie by id
+    /**
+     * GET mapping for a given movie.
+     * @param id    id of the movie as path variable.
+     * @return      ResponseEntity containing a Movie object and HTTP Status.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Movie> getMovie(@PathVariable Long id){ return movieService.getMovieById(id);  }
 
-    //mapping for adding a movie into database
+    /**
+     * POST mapping for a adding a movie.
+     * @param movie    Movie object in request body
+     * @return      ResponseEntity containing the added Movie object and HTTP Status.
+     */
     @PostMapping
     public ResponseEntity<Movie> addMovie(@RequestBody Movie movie){
         return movieService.addMovie(movie);
     }
 
-    //mapping for updating a move in the database
+    /**
+     * PUT mapping for updating a movie.
+     * @param id    id of the Movie as path variable.
+     * @param movie    Movie object in request body.
+     * @return      ResponseEntity containing the updated Movie object and HTTP Status.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Movie> updateMovie(@PathVariable Long id, @RequestBody Movie movie){ return movieService.updateMovie(id, movie); }
 
-    //mapping for deleting a movie from the database
+    /**
+     * DELETE mapping for deleting a movie.
+     * @param id    id of the Movie as path variable.
+     * @return      ResponseEntity containing the updated Movie object and HTTP Status.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Movie> updateCharacter(@PathVariable Long id) {
         return movieService.deleteMovie(id);

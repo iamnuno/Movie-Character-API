@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +33,6 @@ public class MovieService {
      */
     public ResponseEntity<List<Movie>> getAllMovies() {
         List<Movie> movies = movieRepository.findAll();
-        HttpStatus status = HttpStatus.OK;
-        List<Movie> characters = movieRepository.findAll();
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }
 
@@ -44,18 +41,12 @@ public class MovieService {
      * @param id    Private key of the Movie
      * @return      Movie object and HTTP Status.
      */
-    public ResponseEntity<Movie> getMovieById(long id) {
-        HttpStatus status;
-        // check if the movie exists, if it does set http status as ok and return the movie
+    public ResponseEntity<Movie> getMovieById(Long id) {
         if(movieRepository.existsById(id)){
             Movie movie = movieRepository.findById(id).get();
-            status = HttpStatus.OK;
-            return new ResponseEntity<>(movie, status);
-            //if movie doesn't exist set HttpStatus as not found and return a null
-        } else {
-            status = HttpStatus.NOT_FOUND;
-            return new ResponseEntity<>(null, status);
-        }
+            return new ResponseEntity<>(movie, HttpStatus.OK);
+        } else
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -63,7 +54,7 @@ public class MovieService {
      * @param id    Private key of the Movie
      * @return      List of Characters and HTTP Status.
      */
-    public ResponseEntity<List<Character>> getCharactersByMovie(@PathVariable Long id){
+    public ResponseEntity<List<Character>> getCharactersByMovie(Long id){
         List<Character> characters;
         if (movieRepository.existsById(id)) {
             characters = new ArrayList<>(movieRepository.getOne(id).getCharacters());
@@ -88,7 +79,7 @@ public class MovieService {
     }
 
     /**
-     * Calls MovieRepository to update a movie in the database.
+     * Calls MovieRepository to update a movie in the database.     *
      * @param movieToUpdate    Movie object to be updated.
      * @param id    Id of the movie to be updated.
      * @return      A movie response entity and HTTP Status.
@@ -148,7 +139,7 @@ public class MovieService {
      * @param id    Id of the movie to be deleted.
      * @return      A movie response entity and HTTP Status.
      */
-    public ResponseEntity<Movie> deleteMovie(long id) {
+    public ResponseEntity<Movie> deleteMovie(Long id) {
         HttpStatus status;
         if (movieRepository.existsById(id)){
             status = HttpStatus.OK;
