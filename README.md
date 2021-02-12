@@ -44,3 +44,9 @@ The application is constructed using Spring, Spring Data, and Hibernate, and usi
 8. A collection of API calls in postman should be included.
 
 9. The project should be published on Heroku.
+
+### Authors
+Project by:
+    1. Nuno Cunha
+    2. Okko Partanen
+    3. Rasmus Ulrichsen
