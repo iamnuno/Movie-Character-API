@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Service class handling character related database repository interaction.
+ * Service class handling character related repository interaction.
  */
 @Service
 public class CharacterService {
@@ -23,11 +23,21 @@ public class CharacterService {
     @Autowired
     private MovieRepository movieRepository;
 
+    /**
+     * Gets all characters from database.
+     *
+     * @return ResponseEntity object with list of characters and HTTP status code
+     */
     public ResponseEntity<List<Character>> getCharacters() {
         List<Character> characters = characterRepository.findAll();
         return new ResponseEntity<>(characters, HttpStatus.OK);
     }
 
+    /**
+     * Gets specific character from database by id.
+     *
+     * @return ResponseEntity object with character and HTTP status code
+     */
     public ResponseEntity<Character> getCharacterById(long id) {
         Character returnCharacter = new Character();
         HttpStatus status;
@@ -42,6 +52,11 @@ public class CharacterService {
         return new ResponseEntity<>(returnCharacter, status);
     }
 
+    /**
+     * Creates a new character in database.
+     *
+     * @return ResponseEntity object with character (if created) and HTTP status code
+     */
     public ResponseEntity<Character> addCharacter(Character character) {
         if (!characterRepository.existsById(character.getId())) {
             character = characterRepository.save(character);
@@ -51,6 +66,12 @@ public class CharacterService {
         }
     }
 
+    /**
+     * Update a character in database.
+     * Checks which fields are in the body request to prevent overriding the object in database.
+     *
+     * @return ResponseEntity object with character (if updated) and HTTP status code
+     */
     public ResponseEntity<Character> updateCharacter(Long id, Character characterUpdate) {
         if (characterRepository.existsById(id)) {
             if (id == characterUpdate.getId()) {
@@ -90,6 +111,11 @@ public class CharacterService {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Delete a character in database by id.
+     *
+     * @return ResponseEntity object with HTTP status code
+     */
     public ResponseEntity<Character> deleteCharacter(long id) {
         Character character = new Character();
         character.setId(id);
