@@ -6,6 +6,10 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Franchise model for the Franchise keys.
+ * Along with getters and setters.
+ */
 @Entity
 public class Franchise {
     @Id
