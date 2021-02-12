@@ -40,8 +40,12 @@ public class CharacterService {
     }
 
     public ResponseEntity<Character> addCharacter(Character character) {
-        character = characterRepository.save(character);
-        return new ResponseEntity<>(character, HttpStatus.CREATED);
+        if (!characterRepository.existsById(character.getId())) {
+            character = characterRepository.save(character);
+            return new ResponseEntity<>(character, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 
     public ResponseEntity<Character> updateCharacter(Long id, Character characterUpdate) {
