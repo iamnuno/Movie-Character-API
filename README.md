@@ -45,6 +45,10 @@ The application is constructed using Spring, Spring Data, and Hibernate, and usi
 
 9. The project should be published on Heroku.
 
+## External Links
+Heroku: https://character-movie-app.herokuapp.com \
+Endpoint hierarchy: https://character-movie-app.herokuapp.com/swagger-ui/
+
 ## Authors
 Project by:
     1. Nuno Cunha
