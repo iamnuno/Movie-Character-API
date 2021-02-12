@@ -50,7 +50,8 @@ Heroku: https://character-movie-app.herokuapp.com \
 Endpoint hierarchy: https://character-movie-app.herokuapp.com/swagger-ui/
 
 ## Authors
-Project by:
-    1. Nuno Cunha
-    2. Okko Partanen
-    3. Rasmus Ulrichsen
+Project by: \
+    1. Nuno Cunha \
+    2. Okko Partanen \
+    3. Rasmus Ulrichsen \
+
